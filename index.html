@@ -32,11 +32,11 @@
 
         /* Card styles */
         .card {
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 3px solid #ccc;
+            border-radius: 10px;
             padding: 10px;
             margin: 10px;
-            width: calc(90.33% - 20px);
+            width: calc(33.33% - 7px);
             box-sizing: border-box;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -118,6 +118,17 @@
             padding: 10px;
             font-size: 16px;
         }
+
+/* Added CSS for location icon */
+        .location-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #333;
+        }
+
+
     </style>
 </head>
 <body>
@@ -225,44 +236,43 @@
         { name: "IMax", location: "IMAX Road, NTR Marg, behind of, Khairtabad, Hyderabad, Telangana 500063", date: "2024-04-18", capacity: 300, availableTimes: ["2:00 AM", "6:00 PM", "9:00 PM"], price: 35000 },
     ];
 
-   // Function to populate theater selection section
-function populateTheaters() {
-    const theaterSelection = document.querySelector("#theater-selection .theater-card");
-    theaterSelection.innerHTML = "";
-    theaters.forEach(theater => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.innerHTML = `
-            <h3>${theater.name}</h3>
-            <p><i class="fas fa-map-marker-alt"></i> ${theater.location}</p>
-            <p><strong>Date:</strong> ${theater.date}</p>
-            <p><i class="fas fa-users"></i> ${theater.capacity}</p>
-            <p><i class="fas fa-money-bill-wave"></i> ₹${theater.price}</p>
-            <p><i class="far fa-clock"></i> ${theater.availableTimes.join(", ")}</p>
-            <div class="overlay">
-                <div class="overlay-content">
-                    <p>Click to Select</p>
+    // Function to populate theater selection section
+    function populateTheaters() {
+        const theaterSelection = document.querySelector("#theater-selection .theater-card");
+        theaterSelection.innerHTML = "";
+        theaters.forEach(theater => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+                <h3>${theater.name}</h3>
+                <p><i class="fas fa-map-marker-alt"></i> ${theater.location}</p>
+                <p><strong>Date:</strong> ${theater.date}</p>
+                <p><i class="fas fa-users"></i> ${theater.capacity}</p>
+                <p><i class="fas fa-money-bill-wave"></i> ₹${theater.price}</p>
+                <p><i class="far fa-clock"></i> ${theater.availableTimes.join(", ")}</p>
+                <div class="overlay">
+                    <div class="overlay-content">
+                        <p>Click to Select</p>
+                    </div>
                 </div>
-            </div>
-            <i class="fas fa-map-marker location-icon" data-location="${theater.location}"></i>
-        `;
-        card.addEventListener("click", () => {
-            // Store the selected theater in a global variable
-            selectedTheater = theater;
-            // Show the timing selection section
-            document.getElementById("timing-selection").style.display = "block";
-            // Hide the theater selection section
-            document.getElementById("theater-selection").style.display = "none";
-            hideFooter(); // Hide footer
-            // Populate the timing selection dropdown
-            populateTimings(theater.availableTimes);
-            // Scroll to timing selection section
-            document.getElementById("timing-selection").scrollIntoView({ behavior: 'smooth' });
-        });
+                <i class="fas fa-map-marker location-icon" data-location="${theater.location}"></i>
+            `;
+            card.addEventListener("click", () => {
+                // Store the selected theater in a global variable
+                selectedTheater = theater;
+                // Show the timing selection section
+                document.getElementById("timing-selection").style.display = "block";
+                // Hide the theater selection section
+                document.getElementById("theater-selection").style.display = "none";
+                // Populate the timing selection dropdown
+                populateTimings(theater.availableTimes);
+                // Scroll to timing selection section
+                document.getElementById("timing-selection").scrollIntoView({ behavior: 'smooth' });
+            });
 
-        theaterSelection.appendChild(card);
-    });
-}
+            theaterSelection.appendChild(card);
+        });
+    }
 
     // Function to populate timing selection dropdown
     function populateTimings(timings) {
@@ -397,16 +407,6 @@ function populateTheaters() {
         }
     }
 
-// Event listener for location icon click
-document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('location-icon')) {
-        const theaterLocation = event.target.dataset.location;
-        redirectToMaps(theaterLocation);
-    }
-});
-
-
-
     // Event listener for timing selection submission
     document.getElementById("timing-selection-submit").addEventListener("click", handleTimingSelection);
     // Event listener for movie selection submission
@@ -430,15 +430,11 @@ document.addEventListener('click', function(event) {
         }
     });
 
+
     // Function to hide the footer
     function hideFooter() {
         document.querySelector('footer').style.display = 'none';
     }
-// Function to redirect to Google Maps with the theater's location
-function redirectToMaps(location) {
-    const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
-    window.open(mapUrl, '_blank');
-}
 
     // Function to show the footer
     function showFooter() {
@@ -474,6 +470,8 @@ function redirectToMaps(location) {
         } else {
             document.getElementById('card-details').style.display = 'none';
         }
+
+
     });
 </script>
 </body>
