@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <h1><span class="logo">BMT</span></h1>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Movie Theater</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .theater-card,
+        .movie-card {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: calc(33.33% - 20px);
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay-content {
+            text-align: center;
+        }
+
+        .overlay-content p {
+            margin: 5px 0;
+        }
+
+        .button-container {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Added CSS for location icon */
+        .location-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Book Movie Theater</h1>
+</header>
+<main>
+    <section id="theater-selection">
+        <h2><i class="fas fa-video"></i> Select a Theater</h2>
+        <div class="theater-card"></div>
+    </section>
+
+    <section id="timing-selection" style="display: none;">
+        <h2>Select a Timing</h2>
+        <select id="timing-select"></select>
+        <button id="timing-selection-submit">Submit</button>
+    </section>
+
+    <section id="movie-selection" style="display: none;">
+        <h2><i class="fas fa-film"></i> Enter the Movie Name</h2>
+        <div class="movie-selection-form">
+            <label for="movie-name">Movie Name:</label>
+            <input type="text" id="movie-name" name="movie-name" required>
+            <button id="movie-selection-submit">Submit</button>
+        </div>
+    </section>
+
+    <section id="booking-confirmation" style="display: none;">
+        <h2><i class="fas fa-check-circle"></i> Confirm Booking</h2>
+        <div class="confirmation-details">
+            <!-- Booking details dynamically generated here -->
+        </div>
+        <h3>Select Payment Method:</h3>
+        <select id="payment-method">
+            <option value="card"><i class="far fa-credit-card"></i> Credit/Debit Card</option>
+            <option value="phonepe"><i class="fab fa-phonepe"></i> PhonePe</option>
+            <option value="paytm"><i class="fab fa-paytm"></i> Paytm</option>
+            <option value="gpay"><i class="fab fa-google-pay"></i> Google Pay</option>
+        </select>
+        <div id="card-details" style="display: none;">
+            <h3>Enter Card Details:</h3>
+            <input type="text" id="card-number" placeholder="Card Number">
+            <input type="text" id="expiry-date" placeholder="Expiry Date">
+            <input type="text" id="cvv" placeholder="CVV">
+        </div>
+        <div class="button-container">
+            <button id="confirm-booking"><i class="fas fa-check"></i> Confirm Booking</button>
+            <button id="confirm-booked" style="display: none;"><i class="fas fa-check"></i> Confirm Booked</button>
+            <button id="share-booking" style="display: none;"><i class="fas fa-share"></i> Share</button>
+            <button id="download-booking" style="display: none;"><i class="fas fa-download"></i> Download</button>
+        </div>
+    </section>
+</main>
+<footer>
+    <p>Designed and built by Your G.Thangella &copy; 2024. All rights reserved.</p>
+    <p>This website is protected by copyright law. Unauthorized use or modification of the code is prohibited.</p>
+    <p><strong>About:</strong> This website allows you to book an entire theater to watch your favorite movie on the available screens at your chosen location. Once you book the theater, it's exclusively yours for that particular time slot. Please read the terms and conditions carefully before proceeding. Go ahead and reserve your spot now!</p>
+ <p><strong>Important point to know*:</strong>Only old movies that are not currently in theaters are to be entered to watch not the current runing movies in theaters.</p>
+<p><strong>Main Moto of this website*:</strong>The main moto of us is to make you watch your favorite movie or the movie which you missed in theaters to watch them again in the theaters you can watch it with your friends and the people you want with to watch with privacy and Enjoy.</p>
+    <p><strong>About Booking Conformations:</strong> After Payment Done Only You Can Download And Share the Booking Details After payment is done, the "Confirm Booked" button becomes visible, allowing you to confirm the booking.
+        After the booking is confirmed, the download and share options become available.</p>
+
+    <p><strong>Terms and Conditions:</strong></p>
+    <ul>
+        <li><strong>Reservation Policy:</strong> Reservations must be made in advance through the website's booking system. Walk-in reservations may not be accommodated.</li>
+        <li><strong>Cancellation Policy:</strong> Cancellations must be made at least 24 hours before the scheduled screening time to receive a full refund. Late cancellations may incur a fee.</li>
+        <li><strong>Payment Policy:</strong> Full payment is required at the time of booking. Accepted payment methods will be specified on the website.</li>
+        <li><strong>Movie Selection:</strong> The selection of movies available for booking may vary based on licensing agreements and theater availability.</li>
+        <li><strong>Capacity Limit:</strong> The maximum capacity for each theater may vary. Please adhere to the specified capacity limits for your booking.</li>
+        <li><strong>Arrival Time:</strong> Guests are advised to arrive at least 15 minutes before the scheduled screening time to ensure a smooth check-in process.</li>
+        <li><strong>Conduct:</strong> Guests are expected to adhere to the theater's code of conduct and respect other patrons during their visit.</li>
+        <li><strong>Food and Beverage Policy:</strong> Outside food and beverages may not be allowed in the theater. Please refer to the theater's policies regarding concessions.</li>
+        <li><strong>Cleaning and Damages:</strong> Guests are responsible for any damages caused during their reservation period. Additional cleaning fees may apply if necessary.</li>
+        <li><strong>Accessibility:</strong> The website and theater facilities strive to be accessible to all guests. Please contact customer support for any accessibility-related inquiries or assistance.</li>
+    </ul>
+    <p>It's important to review and agree to these terms and conditions before proceeding with your booking.</p>
+</footer>
+
+<script>
+    // Sample data for theaters and movies
+    let theaters = [
+        { name: "Shiva Ganga", location: "Asian Shiva Ganga, Kalyan Nagar Road, Survey No.102, Gaddiannaram Rd, near City Bus Stop, Sahithi Nagar, Dilsukhnagar, Hyderabad, Telangana 500060", date: "2024-04-18", capacity: 100, availableTimes: ["10:00 AM", "2:00 PM", "6:00 PM"], price: 20000 },
+        { name: "Konark Asian-Mukta-A2", location: "Dilsukhnagar, Konark Theatre Ln, Dilsukhnagar, Hyderabad, Telangana 500060", date: "2024-04-18", capacity: 120, availableTimes: ["11:00 AM", "3:00 PM", "7:00 PM"], price: 25000 },
+        { name: "Sudarshan", location: "RTC X Rd, Chikkadpally, Himayatnagar, Hyderabad, Telangana 500020", date: "2024-04-18", capacity: 220, availableTimes: ["2:00 AM", "9:00 PM"], price: 25000 },
+        // New theater added
+        { name: "IMax", location: "IMAX Road, NTR Marg, behind of, Khairtabad, Hyderabad, Telangana 500063", date: "2024-04-18", capacity: 300, availableTimes: ["2:00 AM", "6:00 PM", "9:00 PM"], price: 35000 },
+    ];
+
+    // Function to populate theater selection section
+    function populateTheaters() {
+        const theaterSelection = document.querySelector("#theater-selection .theater-card");
+        theaterSelection.innerHTML = "";
+        theaters.forEach(theater => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.innerHTML = `
+                <h3>${theater.name}</h3>
+                <p><i class="fas fa-map-marker-alt"></i> ${theater.location}</p>
+                <p><strong>Date:</strong> ${theater.date}</p>
+                <p><i class="fas fa-users"></i> ${theater.capacity}</p>
+                <p><i class="fas fa-money-bill-wave"></i> ₹${theater.price}</p>
+                <p><i class="far fa-clock"></i> ${theater.availableTimes.join(", ")}</p>
+                <div class="overlay">
+                    <div class="overlay-content">
+                        <p>Click to Select</p>
+                    </div>
+                </div>
+                <i class="fas fa-map-marker location-icon" data-location="${theater.location}"></i>
+            `;
+            card.addEventListener("click", () => {
+                // Store the selected theater in a global variable
+                selectedTheater = theater;
+                // Show the timing selection section
+                document.getElementById("timing-selection").style.display = "block";
+                // Hide the theater selection section
+                document.getElementById("theater-selection").style.display = "none";
+                // Populate the timing selection dropdown
+                populateTimings(theater.availableTimes);
+                // Scroll to timing selection section
+                document.getElementById("timing-selection").scrollIntoView({ behavior: 'smooth' });
+            });
+
+            theaterSelection.appendChild(card);
+        });
+    }
+
+    // Function to populate timing selection dropdown
+    function populateTimings(timings) {
+        const timingSelect = document.getElementById("timing-select");
+        timingSelect.innerHTML = "";
+        timings.forEach(timing => {
+            const option = document.createElement("option");
+            option.value = timing;
+            option.textContent = timing;
+            timingSelect.appendChild(option);
+        });
+    }
+
+    // Function to handle timing selection submission
+    function handleTimingSelection() {
+        // Show the movie selection section
+        document.getElementById("movie-selection").style.display = "block";
+        // Hide the timing selection section
+        document.getElementById("timing-selection").style.display = "none";
+        // Scroll to movie selection section
+        document.getElementById("movie-selection").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Function to handle movie selection submission
+    function handleMovieSelection() {
+        const movieNameInput = document.getElementById("movie-name");
+        const selectedMovieName = movieNameInput.value.trim();
+        const selectedTiming = document.getElementById("timing-select").value;
+
+        // Check if the movie name is provided
+        if (selectedMovieName === "") {
+            alert("Please enter the name of the movie.");
+            return;
+        }
+
+        // Populate the booking confirmation section with selected data
+        populateConfirmation(selectedTheater, selectedMovieName, selectedTiming);
+
+        // Show the booking confirmation section
+        document.getElementById("booking-confirmation").style.display = "block";
+        // Hide the movie selection section
+        document.getElementById("movie-selection").style.display = "none";
+        // Scroll to booking confirmation section
+        document.getElementById("booking-confirmation").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Function to populate booking confirmation section
+    function populateConfirmation(theater, movieName, timing) {
+        const confirmationDetails = document.querySelector("#booking-confirmation .confirmation-details");
+        confirmationDetails.innerHTML = `
+            <p><strong>Theater:</strong> ${theater.name}</p>
+            <p><strong>Location:</strong> ${theater.location}</p>
+            <p><strong>Movie:</strong> ${movieName}</p>
+            <p><strong>Timing:</strong> ${timing}</p>
+            <p><strong>Price:</strong> ₹${theater.price}</p>
+        `;
+    }
+
+    // Function to handle confirming booking
+    function handleConfirmBooking() {
+        const paymentMethod = document.getElementById("payment-method").value;
+        if (paymentMethod === 'card') {
+            // Display card details input
+            document.getElementById("card-details").style.display = "block";
+        } else {
+            // Redirect to external payment page
+            redirectToPayment(paymentMethod);
+        }
+    }
+
+    // Function to handle redirecting to external payment page
+    function redirectToPayment(paymentMethod) {
+        switch(paymentMethod) {
+            case 'phonepe':
+                window.location.href = "https://www.phonepe.com";
+                break;
+            case 'paytm':
+                window.location.href = "https://paytm.com";
+                break;
+            case 'gpay':
+                window.location.href = "https://pay.google.com/gp/w/u/0/home/signup";
+                break;
+            default:
+                alert("Invalid payment method selected.");
+        }
+    }
+
+    // Function to handle confirming booked after payment is done
+    function handleConfirmBooked() {
+        // Proceed with download and share options
+        handleDownloadBooking();
+        handleShareBooking();
+    }
+
+    // Function to handle downloading booking details
+    function handleDownloadBooking() {
+        const confirmationDetails = document.querySelector("#booking-confirmation .confirmation-details").textContent.trim();
+        const bookingDetails = `Booking Details:\n${confirmationDetails}`;
+        const blob = new Blob([bookingDetails], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "booking_details.txt";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    }
+
+    // Function to redirect to Google Maps with the theater's location
+    function redirectToMaps(location) {
+        const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+        window.open(mapUrl, '_blank');
+    }
+
+    // Function to handle sharing booking details
+    function handleShareBooking() {
+        const confirmationDetails = document.querySelector("#booking-confirmation .confirmation-details").textContent.trim();
+        if (navigator.share) {
+            navigator.share({
+                title: 'Booking Details',
+                text: 'Check out my booking details:',
+                url: confirmationDetails,
+            }).then(() => {
+                console.log('Booking details shared successfully.');
+            }).catch((error) => {
+                console.error('Error sharing booking details:', error);
+            });
+        } else {
+            alert("Sharing is not supported in this browser.");
+        }
+    }
+
+    // Event listener for timing selection submission
+    document.getElementById("timing-selection-submit").addEventListener("click", handleTimingSelection);
+    // Event listener for movie selection submission
+    document.getElementById("movie-selection-submit").addEventListener("click", handleMovieSelection);
+    // Event listener for confirming booking
+    document.getElementById("confirm-booking").addEventListener("click", handleConfirmBooking);
+    // Event listener for confirming booked after payment is done
+    document.getElementById("confirm-booked").addEventListener("click", handleConfirmBooked);
+
+    // Initialize selectedTheater variable
+    let selectedTheater;
+
+    // Populate theater selection section on page load
+    populateTheaters();
+
+    // Event listener for location icon click
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('location-icon')) {
+            const theaterLocation = event.target.dataset.location;
+            redirectToMaps(theaterLocation);
+        }
+    });
+</script>
+</body>
+</html>
