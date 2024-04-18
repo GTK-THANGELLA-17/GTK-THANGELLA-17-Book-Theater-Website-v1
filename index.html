@@ -1,43 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <h1><span class="logo">BMT</span></h1>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Movie Theater</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Global styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
         }
 
+        /* Header styles */
         header {
-            background-color: #333;
-            color: #fff;
+            background-color: #FFD700;
+            color: #121C2C;
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-
+        /* Main styles */
         main {
             padding: 20px;
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        .theater-card,
-        .movie-card {
             display: flex;
+            justify-content: space-between;
             flex-wrap: wrap;
         }
 
+        /* Card styles */
         .card {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -57,10 +50,6 @@
             transform: scale(1.05);
         }
 
-        .card:hover .overlay {
-            opacity: 1;
-        }
-
         .overlay {
             position: absolute;
             top: 0;
@@ -76,41 +65,58 @@
             transition: opacity 0.3s ease;
         }
 
-        .overlay-content {
+        .card:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #121C2C;
+            color: #CCCCCC;
+            padding: 20px;
             text-align: center;
+            width: 100%;
         }
 
-        .overlay-content p {
-            margin: 5px 0;
+        /* Theater selection section */
+        #theater-selection {
+            width: 100%;
         }
 
-        .button-container {
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
+        /* Timing selection section */
+        #timing-selection {
+            width: 48%;
         }
 
-        .button-container button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        /* Movie selection section */
+        #movie-selection {
+            width: 48%;
         }
 
-        .button-container button:hover {
-            background-color: #45a049;
+        /* Booking confirmation section */
+        #booking-confirmation {
+            width: 48%;
         }
 
-        /* Added CSS for location icon */
-        .location-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            color: #333;
+        /* Media queries for responsiveness */
+        @media only screen and (max-width: 768px) {
+            .card {
+                width: calc(50% - 20px);
+            }
+
+            #timing-selection,
+            #movie-selection,
+            #booking-confirmation {
+                width: 100%;
+            }
+        }
+
+        /* Additional Styles */
+        /* Increase size of input fields and buttons */
+        input[type="text"],
+        button {
+            padding: 10px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -126,16 +132,20 @@
 
     <section id="timing-selection" style="display: none;">
         <h2>Select a Timing</h2>
-        <select id="timing-select"></select>
-        <button id="timing-selection-submit">Submit</button>
+        <select id="timing-select" style="width: 100%; padding: 10px; font-size: 16px;"></select>
+        <br>
+        <button id="timing-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
+        <button id="back-to-theater-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
     </section>
 
     <section id="movie-selection" style="display: none;">
         <h2><i class="fas fa-film"></i> Enter the Movie Name</h2>
         <div class="movie-selection-form">
             <label for="movie-name">Movie Name:</label>
-            <input type="text" id="movie-name" name="movie-name" required>
-            <button id="movie-selection-submit">Submit</button>
+            <input type="text" id="movie-name" name="movie-name" required style="width: 100%; padding: 10px; font-size: 16px;">
+            <br>
+            <button id="movie-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
+            <button id="back-to-timing-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
         </div>
     </section>
 
@@ -144,24 +154,39 @@
         <div class="confirmation-details">
             <!-- Booking details dynamically generated here -->
         </div>
+
+        <div class="user-details" style="display: none;">
+            <h3>Enter Your Details:</h3>
+            <input type="text" id="user-name" placeholder="Your Name" style="width: 100%; padding: 10px; font-size: 16px;">
+            <br>
+            <input type="text" id="user-mobile" placeholder="Your Mobile Number" style="width: 100%; padding: 10px; font-size: 16px;">
+            <br>
+            <input type="text" id="user-address" placeholder="Your Address" style="width: 100%; padding: 10px; font-size: 16px;">
+        </div>
+
         <h3>Select Payment Method:</h3>
-        <select id="payment-method">
+        <select id="payment-method" style="width: 100%; padding: 10px; font-size: 16px;">
             <option value="card"><i class="far fa-credit-card"></i> Credit/Debit Card</option>
             <option value="phonepe"><i class="fab fa-phonepe"></i> PhonePe</option>
             <option value="paytm"><i class="fab fa-paytm"></i> Paytm</option>
             <option value="gpay"><i class="fab fa-google-pay"></i> Google Pay</option>
         </select>
+        <br>
         <div id="card-details" style="display: none;">
             <h3>Enter Card Details:</h3>
-            <input type="text" id="card-number" placeholder="Card Number">
-            <input type="text" id="expiry-date" placeholder="Expiry Date">
-            <input type="text" id="cvv" placeholder="CVV">
+            <input type="text" id="card-number" placeholder="Card Number" style="width: 100%; padding: 10px; font-size: 16px;">
+            <br>
+            <input type="text" id="expiry-date" placeholder="Expiry Date" style="width: 100%; padding: 10px; font-size: 16px;">
+            <br>
+            <input type="text" id="cvv" placeholder="CVV" style="width: 100%; padding: 10px; font-size: 16px;">
         </div>
+        <br>
         <div class="button-container">
-            <button id="confirm-booking"><i class="fas fa-check"></i> Confirm Booking</button>
-            <button id="confirm-booked" style="display: none;"><i class="fas fa-check"></i> Confirm Booked</button>
-            <button id="share-booking" style="display: none;"><i class="fas fa-share"></i> Share</button>
-            <button id="download-booking" style="display: none;"><i class="fas fa-download"></i> Download</button>
+            <button id="confirm-booking" style="padding: 10px; font-size: 16px;"><i class="fas fa-check"></i> Confirm Booking</button>
+            <button id="confirm-booked" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-check"></i> Confirm Booked</button>
+            <button id="share-booking" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-share"></i> Share</button>
+            <button id="download-booking" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-download"></i> Download</button>
+            <button id="back-to-movie-selection" style="padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
         </div>
     </section>
 </main>
@@ -169,8 +194,8 @@
     <p>Designed and built by Your G.Thangella &copy; 2024. All rights reserved.</p>
     <p>This website is protected by copyright law. Unauthorized use or modification of the code is prohibited.</p>
     <p><strong>About:</strong> This website allows you to book an entire theater to watch your favorite movie on the available screens at your chosen location. Once you book the theater, it's exclusively yours for that particular time slot. Please read the terms and conditions carefully before proceeding. Go ahead and reserve your spot now!</p>
- <p><strong>Important point to know*:</strong>Only old movies that are not currently in theaters are to be entered to watch not the current runing movies in theaters.</p>
-<p><strong>Main Moto of this website*:</strong>The main moto of us is to make you watch your favorite movie or the movie which you missed in theaters to watch them again in the theaters you can watch it with your friends and the people you want with to watch with privacy and Enjoy.</p>
+    <p><strong>Important point to know*:</strong>Only old movies that are not currently in theaters are to be entered to watch not the current runing movies in theaters.</p>
+    <p><strong>Main Moto of this website*:</strong>The main moto of us is to make you watch your favorite movie or the movie which you missed in theaters to watch them again in the theaters you can watch it with your friends and the people you want with to watch with privacy and Enjoy.</p>
     <p><strong>About Booking Conformations:</strong> After Payment Done Only You Can Download And Share the Booking Details After payment is done, the "Confirm Booked" button becomes visible, allowing you to confirm the booking.
         After the booking is confirmed, the download and share options become available.</p>
 
@@ -228,6 +253,7 @@
                 document.getElementById("timing-selection").style.display = "block";
                 // Hide the theater selection section
                 document.getElementById("theater-selection").style.display = "none";
+                hideFooter(); // Hide footer
                 // Populate the timing selection dropdown
                 populateTimings(theater.availableTimes);
                 // Scroll to timing selection section
@@ -391,6 +417,47 @@
         if (event.target.classList.contains('location-icon')) {
             const theaterLocation = event.target.dataset.location;
             redirectToMaps(theaterLocation);
+        }
+    });
+
+    // Function to hide the footer
+    function hideFooter() {
+        document.querySelector('footer').style.display = 'none';
+    }
+
+    // Function to show the footer
+    function showFooter() {
+        document.querySelector('footer').style.display = 'block';
+    }
+
+    // Event listener for back-to-theater-selection button
+    document.getElementById('back-to-theater-selection').addEventListener('click', function() {
+        document.getElementById("theater-selection").style.display = "block";
+        document.getElementById("timing-selection").style.display = "none";
+        showFooter();
+    });
+
+    // Event listener for back-to-timing-selection button
+    document.getElementById('back-to-timing-selection').addEventListener('click', function() {
+        document.getElementById("timing-selection").style.display = "block";
+        document.getElementById("movie-selection").style.display = "none";
+        showFooter();
+    });
+
+    // Event listener for back-to-movie-selection button
+    document.getElementById('back-to-movie-selection').addEventListener('click', function() {
+        document.getElementById("movie-selection").style.display = "block";
+        document.getElementById("booking-confirmation").style.display = "none";
+        showFooter();
+    });
+
+    // Event listener for payment method change
+    document.getElementById('payment-method').addEventListener('change', function() {
+        const selectedMethod = this.value;
+        if (selectedMethod === 'card') {
+            document.getElementById('card-details').style.display = 'block';
+        } else {
+            document.getElementById('card-details').style.display = 'none';
         }
     });
 </script>
