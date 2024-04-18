@@ -2,9 +2,10 @@
 
 
 ## Website
-Visit our website [here](https://github.com/GTK-THANGELLA-17/GTK-THANGELLA-17-Book-Theater-Website-v1/blob/master/Book-Theater-Image.jpg).
+Visit our website [here](https://gtk-thangella-17.github.io/GTK-THANGELLA-17-Book-Theater-Website-v1/).
 
 
+![Theater](https://github.com/GTK-THANGELLA-17/GTK-THANGELLA-17-Book-Theater-Website-v1/blob/master/Book-Theater-Image.jpg)
 
 
 ![Theater-website-overview]()
