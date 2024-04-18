@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color:#A1D6E2; /* Add a background color */
+            background-color:#F1F1F2; /* Add a background color */
         }
 
         /* About button styles */
@@ -26,19 +26,72 @@
             border-radius: 5px;
             cursor: pointer;
             z-index: 999; /* Set a higher z-index */
+ animation: pulse 2s infinite; /* Apply animation */
         }
 
-        /* Header styles */
-        header {
-            background-color:  #C4DFE6;
-            color: #121C2C;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative; /* Ensure proper positioning */
-            z-index: 99; /* Set a higher z-index than the about button */
-        }
+/* Pulsating animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 
+       /* Header styles */
+header {
+    background-color: #990011;
+    color: #121C2C;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* Ensure proper positioning */
+    z-index: 99; /* Set a higher z-index than the about button */
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    position: auto;
+}
+
+/* Animation for golden shine outline */
+.shining-outline {
+    text-shadow: 0 0 10px #FADA5E, 0 0 20px #FADA5E, 0 0 30px #FADA5E, 0 0 40px #FADA5E, 0 0 70px #FADA5E, 0 0 80px #FADA5E, 0 0 100px #FADA5E, 0 0 150px #FADA5E;
+}
+
+/* Projector icon styles */
+.projector-left,
+.projector-right {
+    animation: shineLight 3s infinite alternate;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Animation keyframes for projector light */
+@keyframes shineLight {
+    0% {
+        box-shadow: 0 0 50px 50px rgba(250, 218, 94, 0.8); /* Golden color with higher opacity */
+    }
+    100% {
+        box-shadow: 0 0 100px 100px rgba(250, 218, 94, 0); /* No shadow, light fades out */
+    }
+}
+
+/* Positioning for left projector */
+.projector-left {
+    left: calc(70% - 60px); /* Adjust as needed */
+    transform: translateY(-90%) scaleX(-1); /* Flip horizontally */
+}
+
+/* Positioning for right projector */
+.projector-right {
+    right: calc(70% - 60px); /* Adjust as needed */
+    transform: translateY(-90%); /* Maintain default orientation */
+}
         /* Main styles */
         main {
             padding: 20px;
@@ -92,7 +145,7 @@
         button {
             padding: 10px;
             font-size: 16px;
-            background-color: #fff; /* Ensure input field background is visible */
+            background-color:#E7E8D1; /* Ensure input field background is visible */
         }
 
         /* Hidden content initially */
@@ -172,6 +225,17 @@
     /* Other styles remain the same */
 }
 
+/* Footer styles */
+footer {
+    background-color: #2A3132; /* Light gray */
+    color:  #F1F1F2; /* Dark gray */
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    position: relative; /* Ensure proper positioning */
+    z-index: 1; /* Set a lower z-index */
+}
+
 
     </style>
 </head>
@@ -180,11 +244,18 @@
     <button id="about-btn">Read About This Website before Booking</button>
 
     <header>
-        <h1>Book Movie Theater</h1>
+         <h1 class="shining-outline">Book Movie Theater</h1>
+    <div class="projector-left">
+        <i class="fas fa-video"></i>
+    </div>
+    <div class="projector-right">
+        <i class="fas fa-video"></i>
+    </div>
     </header>
     <main>
         <section id="theater-selection">
-            <h2><i class="fas fa-video"></i> Select a Theater</h2>
+           <h2 style="color: #F1F1F2;"><i class="fas fa-video"></i> Select a Theater</h2>
+
             <div class="theater-card">
                 <div class="card">Theater 1</div>
                 <div class="card">Theater 2</div>
@@ -195,20 +266,21 @@
 
         <section id="timing-selection" style="display: none;">
             <h2>Select a Timing</h2>
-            <select id="timing-select" style="width: 100%; padding: 20px; font-size: 20px;"></select>
+            <select id="timing-select" style="width: 100%; padding: 20px; font-size: 20px; color: #31473A;"></select>
             <br>
-            <button id="timing-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
-            <button id="back-to-theater-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
+            <button id="timing-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;color: #31473A;">Submit</button>
+            <button id="back-to-theater-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;color: #31473A;">Back</button> <!-- Back button -->
         </section>
 
         <section id="movie-selection" style="display: none;">
             <h2><i class="fas fa-film"></i> Enter the Movie Name</h2>
             <div class="movie-selection-form">
-                <label for="movie-name">Movie Name:</label>
-                <input type="text" id="movie-name" name="movie-name" required style="width: 100%; padding: 10px; font-size: 16px;">
+                <label for="movie-name" style="color:  #31473A;">Movie Name:</label>
+
+                <input type="text" id="movie-name" name="movie-name" required style="width: 100%; padding: 10px; color: #F1F1F2; font-size: 16px;">
                 <br>
-                <button id="movie-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
-                <button id="back-to-timing-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
+                <button id="movie-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;color: #31473A;">Submit</button>
+                <button id="back-to-timing-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;color: #31473A;">Back</button> <!-- Back button -->
             </div>
         </section>
 
@@ -220,11 +292,11 @@
 
             <div class="user-details" style="display: block;"> <!-- Ensure the user details section is initially displayed -->
                 <h3>Enter Your Details:</h3>
-                <input type="text" id="user-name" placeholder="Your Name" style="width: 100%; padding: 10px; font-size: 16px;">
+                <input type="text" id="user-name" placeholder="Your Name" style="width: 100%; padding: 10px;color:#F1F1F2; font-size: 16px;">
                 <br>
-                <input type="text" id="user-mobile" placeholder="Your Mobile Number" style="width: 100%; padding: 10px; font-size: 16px;">
+                <input type="text" id="user-mobile" placeholder="Your Mobile Number" style="width: 100%; padding: 10px;color: #F1F1F2; font-size: 16px;">
                 <br>
-                <input type="text" id="user-address" placeholder="Gmail Address" style="width: 100%; padding: 10px; font-size: 16px;">
+                <input type="text" id="user-address" placeholder="Gmail Address" style="width: 100%; padding: 10px; color: #31473A;font-size: 16px;">
             </div>
 
             <h3>Select Payment Method:</h3>
@@ -237,11 +309,11 @@
             <br>
             <div id="card-details" style="display: none;">
                 <h3>Enter Card Details:</h3>
-                <input type="text" id="card-number" placeholder="Card Number" style="width: 100%; padding: 10px; font-size: 16px;">
+                <input type="text" id="card-number" placeholder="Card Number" style="width: 100%; padding: 10px;color: #31473A; font-size: 16px;">
                 <br>
-                <input type="text" id="expiry-date" placeholder="Expiry Date" style="width: 100%; padding: 10px; font-size: 16px;">
+                <input type="text" id="expiry-date" placeholder="Expiry Date" style="width: 100%; padding: 10px; color: #31473A;font-size: 16px;">
                 <br>
-                <input type="text" id="cvv" placeholder="CVV" style="width: 100%; padding: 10px; font-size: 16px;">
+                <input type="text" id="cvv" placeholder="CVV" style="width: 100%; padding: 10px;color: #31473A;font-size: 16px;">
             </div>
             <br>
             <div class="button-container">
