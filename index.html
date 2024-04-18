@@ -11,23 +11,41 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color:#A1D6E2; /* Add a background color */
+        }
+
+        /* About button styles */
+        #about-btn {
+            position: absolute; /* Absolute position */
+            top: 10px; /* Adjust top position */
+            left: 20px; /* Adjust left position */
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #F1F1F2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 999; /* Set a higher z-index */
         }
 
         /* Header styles */
         header {
-            background-color: #FFD700;
+            background-color:  #C4DFE6;
             color: #121C2C;
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ensure proper positioning */
+            z-index: 99; /* Set a higher z-index than the about button */
         }
 
         /* Main styles */
         main {
             padding: 20px;
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            flex-direction: column; /* Stack sections vertically */
         }
 
         /* Card styles */
@@ -36,7 +54,7 @@
             border-radius: 10px;
             padding: 10px;
             margin: 10px;
-            width: calc(33.33% - 7px);
+            width: calc(33.33% - 20px); /* Adjust width */
             box-sizing: border-box;
             cursor: pointer;
             transition: transform 0.3s ease;
@@ -69,139 +87,172 @@
             opacity: 1;
         }
 
-        /* Footer styles */
-        footer {
-            background-color: #121C2C;
-            color: #CCCCCC;
-            padding: 20px;
-            text-align: center;
-            width: 100%;
-        }
-
-        /* Theater selection section */
-        #theater-selection {
-            width: 100%;
-        }
-
-        /* Timing selection section */
-        #timing-selection {
-            width: 48%;
-        }
-
-        /* Movie selection section */
-        #movie-selection {
-            width: 48%;
-        }
-
-        /* Booking confirmation section */
-        #booking-confirmation {
-            width: 48%;
-        }
-
-        /* Media queries for responsiveness */
-        @media only screen and (max-width: 768px) {
-            .card {
-                width: calc(50% - 20px);
-            }
-
-            #timing-selection,
-            #movie-selection,
-            #booking-confirmation {
-                width: 100%;
-            }
-        }
-
-        /* Additional Styles */
         /* Increase size of input fields and buttons */
         input[type="text"],
         button {
             padding: 10px;
             font-size: 16px;
+            background-color: #fff; /* Ensure input field background is visible */
         }
 
-/* Added CSS for location icon */
+        /* Hidden content initially */
+        #about-popup {
+            display: none;
+            position: fixed; /* Fixed position */
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Center the box */
+            background-color: #A7BEAE; /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9999; /* Set a higher z-index */
+            max-width: 80%; /* Maximum width */
+            max-height: 80%; /* Maximum height */
+            overflow-y: auto; /* Enable vertical scroll if needed */
+        }
+
+        #about-popup p {
+            margin-bottom: 15px;
+        }
+
+        #about-popup h3 {
+            margin-top: 0;
+        }
+
+        #about-popup button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color:  #F1F1F2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Centered section styles */
+        .centered-section {
+            width: 80%; /* Adjust width as needed */
+            max-width: 600px; /* Adjust max-width as needed */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            text-align: center;
+        }
+
+        /* Style input fields and buttons inside centered sections */
+        .centered-section input[type="text"],
+        .centered-section button {
+            margin: 10px auto;
+            width: 80%; /* Adjust width as needed */
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        /* Added CSS for location icon */
         .location-icon {
             position: absolute;
             top: 10px;
             right: 10px;
             cursor: pointer;
-            color: #333;
+            color: #31473A;
         }
+
+/* Modify theater card container to use flexbox */
+#theater-selection .theater-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Adjust card width to fit side by side */
+.card {
+    width: calc(33.33% - 20px); /* Adjust width */
+    /* Other styles remain the same */
+}
 
 
     </style>
 </head>
 <body>
-<header>
-    <h1>Book Movie Theater</h1>
-</header>
-<main>
-    <section id="theater-selection">
-        <h2><i class="fas fa-video"></i>  >>>Select a Theater</h2>
-        <div class="theater-card"></div>
-    </section>
+    <!-- About button moved to above the header -->
+    <button id="about-btn">Read About This Website before Booking</button>
 
-    <section id="timing-selection" style="display: none;">
-        <h2>Select a Timing</h2>
-        <select id="timing-select" style="width: 100%; padding: 10px; font-size: 16px;"></select>
-        <br>
-        <button id="timing-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
-        <button id="back-to-theater-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
-    </section>
+    <header>
+        <h1>Book Movie Theater</h1>
+    </header>
+    <main>
+        <section id="theater-selection">
+            <h2><i class="fas fa-video"></i> Select a Theater</h2>
+            <div class="theater-card">
+                <div class="card">Theater 1</div>
+                <div class="card">Theater 2</div>
+                <div class="card">Theater 3</div>
+                <!-- Add more theaters as needed -->
+            </div>
+        </section>
 
-    <section id="movie-selection" style="display: none;">
-        <h2><i class="fas fa-film"></i> Enter the Movie Name</h2>
-        <div class="movie-selection-form">
-            <label for="movie-name">Movie Name:</label>
-            <input type="text" id="movie-name" name="movie-name" required style="width: 100%; padding: 10px; font-size: 16px;">
+        <section id="timing-selection" style="display: none;">
+            <h2>Select a Timing</h2>
+            <select id="timing-select" style="width: 100%; padding: 20px; font-size: 20px;"></select>
             <br>
-            <button id="movie-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
-            <button id="back-to-timing-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
-        </div>
-    </section>
+            <button id="timing-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
+            <button id="back-to-theater-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
+        </section>
 
-    <section id="booking-confirmation" style="display: none;">
-        <h2><i class="fas fa-check-circle"></i> Confirm Booking</h2>
-        <div class="confirmation-details">
-            <!-- Booking details dynamically generated here -->
-        </div>
+        <section id="movie-selection" style="display: none;">
+            <h2><i class="fas fa-film"></i> Enter the Movie Name</h2>
+            <div class="movie-selection-form">
+                <label for="movie-name">Movie Name:</label>
+                <input type="text" id="movie-name" name="movie-name" required style="width: 100%; padding: 10px; font-size: 16px;">
+                <br>
+                <button id="movie-selection-submit" style="margin-top: 10px; padding: 10px; font-size: 16px;">Submit</button>
+                <button id="back-to-timing-selection" style="margin-top: 10px; padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
+            </div>
+        </section>
 
-        <div class="user-details" style="display: none;">
-            <h3>Enter Your Details:</h3>
-            <input type="text" id="user-name" placeholder="Your Name" style="width: 100%; padding: 10px; font-size: 16px;">
-            <br>
-            <input type="text" id="user-mobile" placeholder="Your Mobile Number" style="width: 100%; padding: 10px; font-size: 16px;">
-            <br>
-            <input type="text" id="user-address" placeholder="Your Address" style="width: 100%; padding: 10px; font-size: 16px;">
-        </div>
+        <section id="booking-confirmation" style="display: none;">
+            <h2><i class="fas fa-check-circle"></i> Confirm Booking</h2>
+            <div class="confirmation-details">
+                <!-- Booking details dynamically generated here -->
+            </div>
 
-        <h3>Select Payment Method:</h3>
-        <select id="payment-method" style="width: 100%; padding: 10px; font-size: 16px;">
-            <option value="card"><i class="far fa-credit-card"></i> Credit/Debit Card</option>
-            <option value="phonepe"><i class="fab fa-phonepe"></i> PhonePe</option>
-            <option value="paytm"><i class="fab fa-paytm"></i> Paytm</option>
-            <option value="gpay"><i class="fab fa-google-pay"></i> Google Pay</option>
-        </select>
-        <br>
-        <div id="card-details" style="display: none;">
-            <h3>Enter Card Details:</h3>
-            <input type="text" id="card-number" placeholder="Card Number" style="width: 100%; padding: 10px; font-size: 16px;">
+            <div class="user-details" style="display: block;"> <!-- Ensure the user details section is initially displayed -->
+                <h3>Enter Your Details:</h3>
+                <input type="text" id="user-name" placeholder="Your Name" style="width: 100%; padding: 10px; font-size: 16px;">
+                <br>
+                <input type="text" id="user-mobile" placeholder="Your Mobile Number" style="width: 100%; padding: 10px; font-size: 16px;">
+                <br>
+                <input type="text" id="user-address" placeholder="Gmail Address" style="width: 100%; padding: 10px; font-size: 16px;">
+            </div>
+
+            <h3>Select Payment Method:</h3>
+            <select id="payment-method" style="width: 100%; padding: 10px; font-size: 16px;">
+                <option value="card"><i class="far fa-credit-card"></i> Credit/Debit Card</option>
+                <option value="phonepe"><i class="fab fa-phonepe"></i> PhonePe</option>
+                <option value="paytm"><i class="fab fa-paytm"></i> Paytm</option>
+                <option value="gpay"><i class="fab fa-google-pay"></i> Google Pay</option>
+            </select>
             <br>
-            <input type="text" id="expiry-date" placeholder="Expiry Date" style="width: 100%; padding: 10px; font-size: 16px;">
+            <div id="card-details" style="display: none;">
+                <h3>Enter Card Details:</h3>
+                <input type="text" id="card-number" placeholder="Card Number" style="width: 100%; padding: 10px; font-size: 16px;">
+                <br>
+                <input type="text" id="expiry-date" placeholder="Expiry Date" style="width: 100%; padding: 10px; font-size: 16px;">
+                <br>
+                <input type="text" id="cvv" placeholder="CVV" style="width: 100%; padding: 10px; font-size: 16px;">
+            </div>
             <br>
-            <input type="text" id="cvv" placeholder="CVV" style="width: 100%; padding: 10px; font-size: 16px;">
-        </div>
-        <br>
-        <div class="button-container">
-            <button id="confirm-booking" style="padding: 10px; font-size: 16px;"><i class="fas fa-check"></i> Confirm Booking</button>
-            <button id="confirm-booked" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-check"></i> Confirm Booked</button>
-            <button id="share-booking" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-share"></i> Share</button>
-            <button id="download-booking" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-download"></i> Download</button>
-            <button id="back-to-movie-selection" style="padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
-        </div>
-    </section>
-</main>
-<footer>
+            <div class="button-container">
+                <button id="confirm-booking" style="padding: 10px; font-size: 16px;"><i class="fas fa-check"></i> Confirm Booking</button>
+                <button id="confirm-booked" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-check"></i> Confirm Booked</button>
+                <button id="share-booking" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-share"></i> Share</button>
+                <button id="download-booking" style="display: none; padding: 10px; font-size: 16px;"><i class="fas fa-download"></i> Download</button>
+                <button id="back-to-movie-selection" style="padding: 10px; font-size: 16px;">Back</button> <!-- Back button -->
+            </div>
+        </section>
+    </main><footer>
     <p>Designed and built by Your G.Thangella &copy; 2024. All rights reserved.</p>
     <p>This website is protected by copyright law. Unauthorized use or modification of the code is prohibited.</p>
     <p><strong>About:</strong> This website allows you to book an entire theater to watch your favorite movie on the available screens at your chosen location. Once you book the theater, it's exclusively yours for that particular time slot. Please read the terms and conditions carefully before proceeding. Go ahead and reserve your spot now!</p>
@@ -226,15 +277,43 @@
     <p>It's important to review and agree to these terms and conditions before proceeding with your booking.</p>
 </footer>
 
+
+<div id="about-popup">
+    <h3>About This Website</h3>
+    <p>This website allows you to book an entire theater to watch your favorite movie on the available screens at your chosen location. Once you book the theater, it's exclusively yours for that particular time slot. Please read the terms and conditions carefully before proceeding. Go ahead and reserve your spot now!</p>
+    <p>Important point to know*: Only old movies that are not currently in theaters are to be entered to watch not the current running movies in theaters.</p>
+    <p>Main Moto of this website*: The main moto of us is to make you watch your favorite movie or the movie which you missed in theaters to watch them again in the theaters you can watch it with your friends and the people you want with to watch with privacy and Enjoy.</p>
+    <p>About Booking Conformations: After Payment Done Only You Can Download And Share the Booking Details After payment is done, the "Confirm Booked" button becomes visible, allowing you to confirm the booking. After the booking is confirmed, the download and share options become available.</p>
+    <button id="close-about">Close</button>
+</div>
+
+
 <script>
     // Sample data for theaters and movies
     let theaters = [
         { name: "Shiva Ganga", location: "Asian Shiva Ganga, Kalyan Nagar Road, Survey No.102, Gaddiannaram Rd, near City Bus Stop, Sahithi Nagar, Dilsukhnagar, Hyderabad, Telangana 500060", date: "2024-04-18", capacity: 100, availableTimes: ["10:00 AM", "2:00 PM", "6:00 PM"], price: 20000 },
         { name: "Konark Asian-Mukta-A2", location: "Dilsukhnagar, Konark Theatre Ln, Dilsukhnagar, Hyderabad, Telangana 500060", date: "2024-04-18", capacity: 120, availableTimes: ["11:00 AM", "3:00 PM", "7:00 PM"], price: 25000 },
         { name: "Sudarshan", location: "RTC X Rd, Chikkadpally, Himayatnagar, Hyderabad, Telangana 500020", date: "2024-04-18", capacity: 220, availableTimes: ["2:00 AM", "9:00 PM"], price: 25000 },
+{ name: "AAA Cinemas", location: "Asian Allu Arjun Cinemas, Satyam Theatre Rd, X RoadKumar Basti, Ameerpet, Hyderabad, Telangana 500082", date: "2024-04-18", capacity: 320, availableTimes: ["2:00 AM", "9:00 PM"], price: 45000 },
+
         // New theater added
         { name: "IMax", location: "IMAX Road, NTR Marg, behind of, Khairtabad, Hyderabad, Telangana 500063", date: "2024-04-18", capacity: 300, availableTimes: ["2:00 AM", "6:00 PM", "9:00 PM"], price: 35000 },
+
     ];
+
+ // About popup functionality
+    var aboutBtn = document.getElementById("about-btn");
+    var aboutPopup = document.getElementById("about-popup");
+    var closeAboutBtn = document.getElementById("close-about");
+
+    aboutBtn.addEventListener("click", function() {
+        aboutPopup.style.display = "block";
+    });
+
+    closeAboutBtn.addEventListener("click", function() {
+        aboutPopup.style.display = "none";
+    });
+
 
     // Function to populate theater selection section
     function populateTheaters() {
@@ -332,16 +411,27 @@
     }
 
     // Function to handle confirming booking
-    function handleConfirmBooking() {
-        const paymentMethod = document.getElementById("payment-method").value;
-        if (paymentMethod === 'card') {
-            // Display card details input
-            document.getElementById("card-details").style.display = "block";
-        } else {
-            // Redirect to external payment page
-            redirectToPayment(paymentMethod);
-        }
+function handleConfirmBooking() {
+    const paymentMethod = document.getElementById("payment-method").value;
+    const userName = document.getElementById("user-name").value.trim();
+    const userMobile = document.getElementById("user-mobile").value.trim();
+    const userAddress = document.getElementById("user-address").value.trim();
+
+    // Check if user details are provided
+    if (userName === "" || userMobile === "" || userAddress === "") {
+        alert("Please enter all your details to confirm the booking.");
+        return;
     }
+
+    // Proceed with further booking confirmation process
+    if (paymentMethod === 'card') {
+        // Display card details input
+        document.getElementById("card-details").style.display = "block";
+    } else {
+        // Redirect to external payment page
+        redirectToPayment(paymentMethod);
+    }
+}
 
     // Function to handle redirecting to external payment page
     function redirectToPayment(paymentMethod) {
@@ -470,7 +560,6 @@
         } else {
             document.getElementById('card-details').style.display = 'none';
         }
-
 
     });
 </script>
