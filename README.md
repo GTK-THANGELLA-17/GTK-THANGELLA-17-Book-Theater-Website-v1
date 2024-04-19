@@ -1,6 +1,10 @@
 # Theater Booking Website
 
-
+## Programming Languages
+- HTML
+- CSS
+- JavaScript
+  
 ## Website
 Visit our website to overview [here](https://gtk-thangella-17.github.io/GTK-THANGELLA-17-Book-Theater-Website-v1/).
 
