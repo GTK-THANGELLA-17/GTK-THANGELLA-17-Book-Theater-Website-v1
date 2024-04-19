@@ -470,7 +470,13 @@ footer {
         const confirmationDetails = document.querySelector("#booking-confirmation .confirmation-details");
         confirmationDetails.innerHTML = `
             <p><strong>Theater:</strong> ${theater.name}</p>
-            <p><strong>Location:</strong> ${theater.location}</p>
+            <p><strong>Date:</strong> ${theater.date}</p>
+            <p><strong></p>
+<p><strong>Location:</strong> 
+            <a href="https://www.google.com/maps/search/?api=1&query=${encodeURI(theater.location)}" target="_blank">
+                <i class="fa fa-map-marker"></i> ${theater.location}
+            </a>
+        </p>
             <p><strong>Movie:</strong> ${movieName}</p>
             <p><strong>Timing:</strong> ${timing}</p>
             <p><strong>Price:</strong> ₹${theater.price}</p>
