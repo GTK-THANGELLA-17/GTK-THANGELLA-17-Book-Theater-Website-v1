@@ -2,10 +2,10 @@
 
 
 ## Website
-Visit our website to overview [here](https://github.com/GTK-THANGELLA-17/GTK-THANGELLA-17-Book-Theater-Website-v1/blob/master/Book-Movie-Theater-Website-Image-1.jpg).
+Visit our website to overview [here](https://gtk-thangella-17.github.io/GTK-THANGELLA-17-Book-Theater-Website-v1/).
 
 
-![Theater](https://github.com/GTK-THANGELLA-17/GTK-THANGELLA-17-Book-Theater-Website-v1/blob/master/Book-Movie-Theater-Website-Image.jpg)
+![Theater](https://github.com/GTK-THANGELLA-17/GTK-THANGELLA-17-Book-Theater-Website-v1/blob/master/Book-Movie-Theater-Website-Image-1.jpg)
 
 
 **Designed and built by Your G.Thangella © 2024. All rights reserved.**
